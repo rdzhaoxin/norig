@@ -1,0 +1,31 @@
+{
+  "configurations": [
+    {
+      "name": "Build",
+      "type": "jps-build",
+      "module": "norig",
+      "includeTests": false
+    },
+    {
+      "name": "jrebel:generate",
+      "type": "maven",
+      "tasks": [
+        "jrebel:generate"
+      ]
+    },
+    {
+      "name": "norig [spring-boot:run]",
+      "type": "maven",
+      "dependsOn": [
+        "jrebel:generate"
+      ],
+      "tasks": [
+        "spring-boot:run"
+      ],
+      "args": [
+        "-Dspring-boot.run.jvmArguments=\"-agentpath:$USER_HOME$/.jrebel/nightly_cache/202209160007/jrebel/lib/libjrebel64.dylib\""
+      ],
+      "debugJvm": "true"
+    }
+  ]
+}
